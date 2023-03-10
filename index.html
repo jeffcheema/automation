@@ -28,6 +28,7 @@
     <button onclick="generate()" id="generateButton">Generate</button>
     <button onclick="buttonDownload()" id="generateButton">Download</button>
   </div>
+  <div id="numberOfItemsUpdated"></div>
   <div class="preview" id="previewTable"></div>
 </div>
 
@@ -1190,6 +1191,7 @@ License: MIT
       shopifyJSON = shopifyJSON.filter(
         (product) => product["Location"] == "Paragon Fulfillment"
       );
+      let count = 0;
 
       shopifyJSON.forEach((product) => {
         if (!product.Handle.includes("-gift")) {
@@ -1197,11 +1199,15 @@ License: MIT
             product["On hand"] = String(
               Math.ceil(Number(warehouseJSON[product.SKU]))
             );
+            count++;
           }
           newJSON.push(product);
         }
       });
 
+      document.querySelector(
+        "#numberOfItemsUpdated"
+      ).innerHTML = `Number of items updated: ${count}`;
       tableJSON = [];
       newJSON.forEach((product) => {
         tableJSON.push(
@@ -1318,5 +1324,9 @@ License: MIT
   }
   button {
     margin: 2%;
+  }
+  #numberOfItemsUpdated {
+    width: 100%;
+    text-align: center;
   }
 </style>
