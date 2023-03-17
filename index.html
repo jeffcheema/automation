@@ -1195,8 +1195,17 @@ License: MIT
 
       shopifyJSON.forEach((product) => {
         if (!product.Handle.includes("-gift")) {
+          console.log(
+            product.SKU == "SWY-CREW-XL" && {
+              product,
+              warehouseJSON: warehouseJSON[product.SKU],
+            }
+          );
           if (Object.keys(warehouseJSON).includes(product.SKU)) {
             product["On hand"] = String(
+              Math.ceil(Number(warehouseJSON[product.SKU]))
+            );
+            product["Available"] = String(
               Math.ceil(Number(warehouseJSON[product.SKU]))
             );
             count++;
